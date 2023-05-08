@@ -1,10 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-// import { ProductItem } from './Data'
-import { ProductItem2 } from '../App';
+import { CartItm } from '../App';
 type Props = {
-  cartItems:ProductItem2[] ;
-  // addToCart: (productItems:any)=>void;
+  cartItems:CartItm[] ;
 }
 
 const Navbar:React.FC<Props> = ({cartItems}) => {
@@ -27,4 +25,4 @@ const Navbar:React.FC<Props> = ({cartItems}) => {
   )
 }
 
-export default Navbar;
+export default React.memo(Navbar);
