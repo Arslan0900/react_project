@@ -1,9 +1,9 @@
 import React from 'react'
-import { ProductItem2 } from '../App';
+import { CartItm } from '../App';
 import "./style.css"
 
 type Props = {
-  cartItems:ProductItem2[];
+  cartItems:CartItm[];
   handleCartClear: ()=>void;
 }
 
@@ -38,4 +38,4 @@ const CheckOut:React.FC<Props> = ({cartItems,handleCartClear}) => {
   )
 }
 
-export default CheckOut
+export default React.memo(CheckOut);
