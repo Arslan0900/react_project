@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
@@ -9,18 +9,16 @@ import Data from './components/Data';
 import { ProductItem } from './components/Data';
 import { useState } from "react";
 
-export interface ProductItem2 extends ProductItem {
+export interface CartItm extends ProductItem {
   quantity: number;
 }
 const App = () => {
-  const [cartItems, setCartItems] = useState<ProductItem2[]>([]);
-  const addToCart = (product: ProductItem) => {
-    // console.log(`product${product}`)
-    const ProductExit = cartItems.find((item: ProductItem) => (item.id === product.id));
-    console.log(ProductExit)
+  const [cartItems, setCartItems] = useState<CartItm[]>([]);
+  const addToCart = useCallback( (product: CartItm) => {
+    const ProductExit = cartItems.find((item: CartItm) => (item.id === product.id));
     if (ProductExit) {
       setCartItems(
-        cartItems.map((item: ProductItem2) =>
+        cartItems.map((item: CartItm) =>
           item.id === product.id
             ? { ...ProductExit, quantity: ProductExit.quantity + 1 }
             : item
@@ -29,7 +27,7 @@ const App = () => {
     } else {
       setCartItems([...cartItems, { ...product, quantity: 1 }]);
     }
-  };
+  },[cartItems])
   const handleCartClear =():void =>{
     setCartItems([])
   };
@@ -37,7 +35,6 @@ const App = () => {
   const { ProductItems } = Data;
   return (
     <>
-      {/* {document.log(ProductItems)} */}
       <BrowserRouter>
         <Navbar cartItems={cartItems} />
         <Routes>
