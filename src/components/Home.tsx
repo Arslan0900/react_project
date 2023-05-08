@@ -10,7 +10,7 @@ const Home: React.FC<Props> = ({ productItems,addToCart }) => {
 
   return (
     <div className='card-page'>{productItems.map((item) => (
-    <div className='card'>
+    <div className='card' key={item.id}>
     <div ><img className='card-image' src={item.image} alt={item.Name}/></div>
     <h2 className='card-name'>{item.Name}</h2>
     <div className='card-decription'>{item.description}</div>
@@ -22,4 +22,4 @@ const Home: React.FC<Props> = ({ productItems,addToCart }) => {
   )
 }
 
-export default Home;
+export default React.memo(Home);
