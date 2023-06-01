@@ -1,51 +1,26 @@
-import React from 'react';
-import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Home from './components/Home';
-import Signin from './components/Signin';
-import CheckOut from './components/CheckOut';
-import Data from './components/Data';
-import { ProductItem } from './components/Data';
-import { useState } from "react";
-
-export interface ProductItem2 extends ProductItem {
-  quantity: number;
-}
-const App = () => {
-  const [cartItems, setCartItems] = useState<ProductItem2[]>([]);
-  const addToCart = (product: ProductItem) => {
-    // console.log(`product${product}`)
-    const ProductExit = cartItems.find((item: ProductItem) => (item.id === product.id));
-    console.log(ProductExit)
-    if (ProductExit) {
-      setCartItems(
-        cartItems.map((item: ProductItem2) =>
-          item.id === product.id
-            ? { ...ProductExit, quantity: ProductExit.quantity + 1 }
-            : item
-        )
-      );
-    } else {
-      setCartItems([...cartItems, { ...product, quantity: 1 }]);
-    }
-  };
-  const handleCartClear =():void =>{
-    setCartItems([])
-  };
-
-  const { ProductItems } = Data;
+import './App.scss';
+import { BrowserRouter,Routes,Route } from 'react-router-dom';
+import Navbar from './Components/Navbar';
+import Home from './Components/Home';
+import About from './Components/About';
+import Contect from './Components/Contect';
+import Help from './Components/Help';
+import Error from './Components/Error';
+function App() {
   return (
     <>
-      {/* {document.log(ProductItems)} */}
-      <BrowserRouter>
-        <Navbar cartItems={cartItems} />
-        <Routes>
-          <Route path='/' element={<Home productItems={ProductItems} addToCart={addToCart} />} />
-          <Route path='/Signin' element={<Signin />} />
-          <Route path='/CheckOut' element={<CheckOut cartItems={cartItems} handleCartClear={handleCartClear} />} />
-        </Routes>
-      </BrowserRouter>
+    <div className='main'>
+    <BrowserRouter>
+    <Navbar/>
+    <Routes>
+      <Route path='/' element={<Home/>} />
+      <Route path='/About' element={<About/>} />
+      <Route path='/Contect' element={<Contect/>} />
+      <Route path='/Help' element={<Help/>} />
+      <Route path='*' element={<Error/>}/>
+    </Routes>
+    </BrowserRouter>
+    </div>
     </>
   );
 }
